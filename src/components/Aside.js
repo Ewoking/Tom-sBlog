@@ -1,6 +1,7 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faTwitter, faInstagramSquare, faFacebookSquare} from '@fortawesome/free-brands-svg-icons';
 import { Link } from 'react-router-dom';
+import Tom from '../assets/images/thomasAnderson.jpg';
 
 
 // Composant Aside
@@ -24,7 +25,7 @@ const Aside = () => {
                 <h4>L'Auteur</h4>
                 <figure>
                     <Link to="/about">
-                        <img src={'/images/thomasAnderson.jpg'} alt="Portrait de Thomas Anderson" />
+                        <img src={Tom} alt="Portrait de Thomas Anderson" />
                         <figcaption>Tom Anderson</figcaption>
                     </Link>
                 </figure>
