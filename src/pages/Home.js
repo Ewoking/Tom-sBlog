@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import Aside from "../components/Aside";
 import PostOverview from "../components/PostOverview";
+import Skeleton from "../components/Skeleton";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faSearch} from '@fortawesome/free-solid-svg-icons';
 
@@ -74,7 +75,7 @@ const Home = (props) => {
 
             <div className="main-wrapper">
                 <div className="content-wrapper">
-                {topArticles.length !== 0 &&
+                {topArticles.length !== 0 ?
                     <section>
                         {topArticles.map((post,index) => {
                             return(
@@ -84,7 +85,9 @@ const Home = (props) => {
                                 
                             )
                         })}
-                    </section>}
+                    </section>
+                    :
+                    <Skeleton/>}
                 </div>
                 <Aside/>
             </div>

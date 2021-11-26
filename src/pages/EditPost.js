@@ -11,6 +11,7 @@ const EditPost = (props) => {
     const history = useHistory();
 
     useEffect(() => {
+        window.scrollTo(0,0);
         const postId = props.match.params.id;
         axios.get(config.apiUrl + "/post/" + postId)
         .then(response => {

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
 import Aside from "../components/Aside";
 import PostOverview from "../components/PostOverview";
+import Skeleton from '../components/Skeleton'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faSearch} from '@fortawesome/free-solid-svg-icons';
 
@@ -21,6 +22,7 @@ const Search = (props) => {
     const [resultArticles, setResultArticles] = useState([]);
     const [searchInput, setSearchInput] = useState("");
     const [commitedSearch, setCommitedSearch] = useState("");
+    const [isSearching, setIsSearching] = useState(true);
     const history = useHistory();
 
     // Réceptionne une éventuelle query depuis la page "Home"
@@ -29,10 +31,10 @@ const Search = (props) => {
         window.scrollTo(0,0);
         fullScreenPage();
         
-        if(!props.location.state) return;
+        if(!props.location.state) return setIsSearching(false);
 
         let existingQuery = "query" in props.location.state && props.location.state.query;
-        if(!existingQuery) return;
+        if(!existingQuery) return setIsSearching(false);
         
         setSearchInput(existingQuery);
         setCommitedSearch(existingQuery);
@@ -40,6 +42,7 @@ const Search = (props) => {
         axios.get(config.apiUrl + "/search?q=" + existingQuery)
         .then(response => {
             setResultArticles(response.data.posts);
+            setIsSearching(false);
         }).catch(err => {
             history.push('/noService');
         })
@@ -48,11 +51,13 @@ const Search = (props) => {
     // Requête serveur d'une recherche utilisateur
     const onHandleSearch = (e) => {
         e.preventDefault();
+        setIsSearching(true);
         setCommitedSearch(searchInput);
 
         axios.get(config.apiUrl + '/search?q=' + searchInput)
         .then(response => {
             setResultArticles(response.data.posts);
+            setIsSearching(false);
         })
     }
 
@@ -80,21 +85,25 @@ const Search = (props) => {
 
             <div className="main-wrapper">
                 <div className="content-wrapper">
-                    {resultArticles.length !== 0 ?
-                    <section>
-                        {resultArticles.map((post,index) => {
-                            return(
-                                <Link to={`/post/${post.id}`} key={index}>
-                                    <PostOverview  post={post}/>
-                                </Link>
-                                
-                            )
-                        })}
+                    {isSearching ? 
+                    <Skeleton/>:
+                    <div className="results">
+                        {resultArticles.length !== 0 ?
+                        <section>
+                            {resultArticles.map((post,index) => {
+                                return(
+                                    <Link to={`/post/${post.id}`} key={index}>
+                                        <PostOverview  post={post}/>
+                                    </Link>
+                                    
+                                )
+                            })}
 
-                    </section> :
-                    <section className="no-result-wrapper">
-                        <p>Pas de résultats ...</p>
-                    </section>}
+                        </section> :
+                        <section className="no-result-wrapper">
+                            <p>Pas de résultats ...</p>
+                        </section>}
+                    </div>}
                 </div>
                 <Aside/>
             </div>

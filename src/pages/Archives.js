@@ -8,6 +8,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faSearch} from '@fortawesome/free-solid-svg-icons';
 
 import fullScreenPage from "../utilities/fullScreenPage";
+import Skeleton from "../components/Skeleton";
 
 const config = require('../config');
 const axios = require("axios");
@@ -22,6 +23,7 @@ const Archives = (props) => {
     const [month, setMonth] = useState(0);
     const [year, setYear] = useState(2000);
     const [maxYear, setMaxYear] = useState(0);
+    const [isSearching, setIsSearching] = useState(true);
     const history = useHistory();
 
     useEffect(()=>{
@@ -38,6 +40,7 @@ const Archives = (props) => {
         axios.get(config.apiUrl + '/monthly?date=' + date.getFullYear() + '-' + date.getMonth())
         .then(response => {
             setResultArticles(response.data.posts);
+            setIsSearching(false);
         }).catch(err => {
             if(err.response && err.response.status === 400) {
                 history.push("/home");
@@ -51,10 +54,12 @@ const Archives = (props) => {
     // Requête serveur des article du mois choisi par l'utilisateur
     const onHandleSubmit = (e) => {
         e.preventDefault();
+        setIsSearching(true);
         
         axios.get(config.apiUrl + '/monthly?date=' + year + '-' + month)
         .then(response => {
             setResultArticles(response.data.posts);
+            setIsSearching(false);
         }).catch(err => {
             if(err.response && err.response.status === 400) {
                 history.push("/home");
@@ -105,21 +110,25 @@ const Archives = (props) => {
             <h3>Résultats du mois</h3>
             <div className="main-wrapper">
                 <div className="content-wrapper">
-                    {resultArticles.length !== 0 ?
-                    <section>
-                        {resultArticles.map((post,index) => {
-                            return(
-                                <Link to={`/post/${post.id}`} key={index}>
-                                    <PostOverview  post={post}/>
-                                </Link>
-                                
-                            )
-                        })}
+                    {isSearching ? 
+                    <Skeleton/>:
+                    <div className="results">
+                        {resultArticles.length !== 0 ?
+                        <section>
+                            {resultArticles.map((post,index) => {
+                                return(
+                                    <Link to={`/post/${post.id}`} key={index}>
+                                        <PostOverview  post={post}/>
+                                    </Link>
+                                    
+                                )
+                            })}
 
-                    </section> :
-                    <section className="no-result-wrapper">
-                        <p>Pas de résultats ...</p>
-                    </section>}
+                        </section> :
+                        <section className="no-result-wrapper">
+                            <p>Pas de résultats ...</p>
+                        </section>}
+                    </div>}
                 </div>
                 <Aside/>
             </div>

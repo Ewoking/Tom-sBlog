@@ -6,6 +6,8 @@ import {faUser, faTimes, faFeatherAlt} from '@fortawesome/free-solid-svg-icons';
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import Aside from "../components/Aside";
+import ArticleSkeleton from "../components/ArticleSkeleton";
+import fullScreenPage from "../utilities/fullScreenPage";
 
 const config = require('../config');
 const axios = require("axios");
@@ -30,12 +32,14 @@ const PostDetail = (props) => {
 
     // Requête serveur de l'article + commentaires associés
     useEffect(() => {
+        window.scrollTo(0,0);
+        fullScreenPage();
         const postId = props.match.params.id;
 
         axios.get(config.apiUrl + "/post/" + postId)
         .then(response => {
-            setPost(response.data.post);
-            setComments(response.data.comments);
+                setPost(response.data.post);
+                setComments(response.data.comments);
         }).catch(err => {
                 if(err.response && err.response.status === 404){
                     history.push('/')
@@ -108,7 +112,7 @@ const PostDetail = (props) => {
 
             <div className="main-wrapper">
                 <div className="content-wrapper">
-                {post &&
+                {post ?
                 <section className="post-wrapper">
                     <h1>{post.title}</h1>
                     <p>{dateManager(post.creationTimestamp)}</p>
@@ -131,7 +135,8 @@ const PostDetail = (props) => {
                                 <FontAwesomeIcon icon={faTimes} className="admin-icon"/>
                             </button>
                         </div>}
-                </section>}
+                </section>:
+                <ArticleSkeleton/>}
                 <section className="comment-section">
                     <h2>Commentaires</h2>
                     
