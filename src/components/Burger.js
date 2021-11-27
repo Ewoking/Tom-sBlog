@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { logoutUser } from "../actions/user/userActions";
+import { switchDisplay } from "../actions/display/displayActions";
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faFeatherAlt} from '@fortawesome/free-solid-svg-icons';
+import {faFeatherAlt, faSun, faMoon} from '@fortawesome/free-solid-svg-icons';
 
 
 // Composant Burger Menu
@@ -15,7 +16,20 @@ import {faFeatherAlt} from '@fortawesome/free-solid-svg-icons';
 
 const Burger = (props) => {
     const [active, setActive] = useState(false);
+    const [darkMode, setDarkMode] = useState(props.darkMode);
     const history = useHistory();
+    const colors = {
+        lightMode : {
+            darker : "#a45c40",
+            lighter : "#f6eee0",
+            highlight : "#c38370"
+        },
+        darkMode : {
+            darker : "#222124",
+            lighter : "#2c2c2c",
+            highlight : "#ffb331"
+        }
+    }
     
     // Ouverture/Fermeture du menu Burger
     useEffect(()=> {
@@ -44,6 +58,24 @@ const Burger = (props) => {
         }
     }, [active])
 
+    // gestion des couleurs lightMode/darkMode
+    useEffect(() => {
+        let root = document.querySelector(':root');
+        let switchElem = document.querySelector('.switcher');
+        if(darkMode){
+            root.style.setProperty('--grey', colors.darkMode.darker);
+            root.style.setProperty('--lightgrey', colors.darkMode.lighter);
+            root.style.setProperty('--orange', colors.darkMode.highlight);
+            switchElem?.classList.remove('switch-light');
+            switchElem?.classList.add('switch-dark');
+        } else {
+            root.style.setProperty('--grey', colors.lightMode.darker);
+            root.style.setProperty('--lightgrey', colors.lightMode.lighter);
+            root.style.setProperty('--orange', colors.lightMode.highlight);
+            switchElem?.classList.remove('switch-dark');
+            switchElem?.classList.add('switch-light');
+        }
+    }, [darkMode])
 
     // Gestion du click
     const onHandleClick = e => {
@@ -57,6 +89,12 @@ const Burger = (props) => {
     const onHandleNewArticle = () => {
         history.push('/newPost');
         setActive(false);
+    }
+
+    const onHandleSwitch = (e) => {
+        e.stopPropagation();
+        setDarkMode(!darkMode);
+        props.switchDisplay();
     }
 
     return(
@@ -88,6 +126,18 @@ const Burger = (props) => {
                     <Link to="/logout" onClick={()=>setActive(false)}>Déconnexion</Link> :
                     <Link to="/login" onClick={()=>setActive(false)}>Connexion</Link>
                     }
+
+                    <div className="color-switch" onClick={onHandleSwitch}>
+                        <div className="switch-wrapper">
+                            <FontAwesomeIcon icon={faSun} className="switch-icon sun"/>
+                            <FontAwesomeIcon icon={faMoon} className="switch-icon moon" />
+                            {props && props.darkMode ?
+                            <div className="switcher switch-dark"></div> :
+                            <div className="switcher switch-light"></div>}
+                            
+                        </div>
+                        
+                    </div>
                 </nav>
             </div>
             }
@@ -97,11 +147,13 @@ const Burger = (props) => {
 
 const mapStateToProps = (store) => {
     return {
-        user: store.user
+        user: store.user,
+        darkMode: store.display.darkMode
     }
 }
 const mapDispatchToProps = {
-    logoutUser
+    logoutUser,
+    switchDisplay
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Burger);

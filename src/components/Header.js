@@ -12,7 +12,7 @@ const Header = () => {
     
     return(
         <header className="header-wrapper">
-            <Link to="/">
+            <Link to="/" style={{textDecoration: "none"}}>
                 <div className="title-wrapper">
                     <FontAwesomeIcon icon={faFeatherAlt} className="feather-logo"/>
                     <h1>Tom's Blog</h1>
