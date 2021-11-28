@@ -3,7 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { logoutUser } from "../actions/user/userActions";
 import { switchDisplay } from "../actions/display/displayActions";
-
+import colorTheme from '../utilities/colorTheme';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faFeatherAlt, faSun, faMoon} from '@fortawesome/free-solid-svg-icons';
 
@@ -18,34 +18,25 @@ const Burger = (props) => {
     const [active, setActive] = useState(false);
     const [darkMode, setDarkMode] = useState(props.darkMode);
     const history = useHistory();
-    const colors = {
-        lightMode : {
-            darker : "#a45c40",
-            lighter : "#f6eee0",
-            highlight : "#c38370"
-        },
-        darkMode : {
-            darker : "#222124",
-            lighter : "#2c2c2c",
-            highlight : "#ffb331"
-        }
-    }
+    
     
     // Ouverture/Fermeture du menu Burger
     useEffect(()=> {
         if(active){
             let header = document.querySelector(".header-wrapper");
+            let clickCatcher = document.querySelector(".burger-menu");
+            let burgerButton = document.querySelector(".burger-wrapper");
+
+            //header in fixed position & resizing body accordingly
             header.classList.add("no-scrolling");
             document.body.style.paddingTop = window.getComputedStyle(header).height;
             
-            let clickCatcher = document.querySelector(".burger-menu");
+            // positioning clickcatcher all across the page 
             clickCatcher.style.width = window.innerWidth +"px";
             clickCatcher.style.height = (window.innerHeight + parseFloat(window.getComputedStyle(header).height))+"px";
-
-            let burgerButton = document.querySelector(".burger-wrapper");
-            
             clickCatcher.style.right = "-" + window.getComputedStyle(burgerButton).marginRight;
-            
+
+            document.querySelector(".burger-menu nav").classList.remove('rolling');
 
             window.addEventListener("click", e => onHandleClick(e))
         
@@ -53,28 +44,18 @@ const Burger = (props) => {
                 window.removeEventListener("click", e => onHandleClick(e))
             };
         }else {
+            document.querySelector(".burger-menu").style.height = 0;
+            document.querySelector(".burger-menu nav").classList.add('rolling');
             document.querySelector(".header-wrapper").classList.remove("no-scrolling");
             document.body.style.paddingTop = 0;
+            
         }
     }, [active])
 
     // gestion des couleurs lightMode/darkMode
     useEffect(() => {
-        let root = document.querySelector(':root');
-        let switchElem = document.querySelector('.switcher');
-        if(darkMode){
-            root.style.setProperty('--grey', colors.darkMode.darker);
-            root.style.setProperty('--lightgrey', colors.darkMode.lighter);
-            root.style.setProperty('--orange', colors.darkMode.highlight);
-            switchElem?.classList.remove('switch-light');
-            switchElem?.classList.add('switch-dark');
-        } else {
-            root.style.setProperty('--grey', colors.lightMode.darker);
-            root.style.setProperty('--lightgrey', colors.lightMode.lighter);
-            root.style.setProperty('--orange', colors.lightMode.highlight);
-            switchElem?.classList.remove('switch-dark');
-            switchElem?.classList.add('switch-light');
-        }
+        if(darkMode) colorTheme.switchColorTheme(true);
+        else colorTheme.switchColorTheme(false);
     }, [darkMode])
 
     // Gestion du click
@@ -83,6 +64,11 @@ const Burger = (props) => {
         if(!e.target.classList.contains("burger-wrapper") && !e.target.classList.contains("burger-line")){
             setActive(false)
         }
+    }
+
+    const globalClick = e => {
+        if(!active && e.target.classList.contains('burger-menu')) return;
+        setActive(!active);
     }
 
     // Gestion du bouton de création d'un article (admin)
@@ -98,14 +84,14 @@ const Burger = (props) => {
     }
 
     return(
-        <div className="burger-wrapper" onClick={() => setActive(!active)}>
+        <div className="burger-wrapper" onClick={globalClick}>
+            {console.log(active)}
             <hr className="burger-line"/>
             <hr className="burger-line"/>
             <hr className="burger-line"/>
-            {active && 
-
+            
             <div className="burger-menu" >
-                <nav onClick={e => e.stopPropagation()}>
+                <nav onClick={e => {e.stopPropagation()}}>
                     {props.user.isLogged &&
                     <h2>{props.user.infos.firstName + " " + props.user.infos.lastName}</h2>
                     }
@@ -136,11 +122,10 @@ const Burger = (props) => {
                             <div className="switcher switch-light"></div>}
                             
                         </div>
-                        
                     </div>
                 </nav>
             </div>
-            }
+
         </div>
     )
 }
