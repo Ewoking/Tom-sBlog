@@ -85,7 +85,6 @@ const Burger = (props) => {
 
     return(
         <div className="burger-wrapper" onClick={globalClick}>
-            {console.log(active)}
             <hr className="burger-line"/>
             <hr className="burger-line"/>
             <hr className="burger-line"/>

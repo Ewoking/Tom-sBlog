@@ -1,3 +1,5 @@
+import { connect } from "react-redux";
+
 
 // Composant Post Overview
 //
@@ -27,7 +29,11 @@ const PostOverview = (props) => {
             {props.post ?
             <article className="post-overview">
             <h2>{props.post.title}</h2>
-            <p>{dateManager(props.post.creationTimestamp)}</p>
+            {props.darkMode ?
+            <p className="overview-date">{dateManager(props.post.creationTimestamp)}</p> :
+            <p className="overview-date dark-text">{dateManager(props.post.creationTimestamp)}</p>
+
+            }
             <p>{contentManager(props.post.content)}</p>
         </article> :
         <article className="post-overview skeleton">
@@ -41,4 +47,13 @@ const PostOverview = (props) => {
     )
 }
 
-export default PostOverview;
+const mapStateToProps = (store) => {
+    return {
+        darkMode: store.display.darkMode
+    }
+}
+
+const mapDispatchToProps = {
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(PostOverview);

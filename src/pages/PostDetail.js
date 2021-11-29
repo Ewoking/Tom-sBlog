@@ -115,7 +115,10 @@ const PostDetail = (props) => {
                 {post ?
                 <section className="post-wrapper">
                     <h1>{post.title}</h1>
-                    <p>{dateManager(post.creationTimestamp)}</p>
+                    {props.darkMode ?
+                    <p>{dateManager(post.creationTimestamp)}</p> :
+                    <p className="dark-text">{dateManager(post.creationTimestamp)}</p>
+                    }
                     <div className="post-content">
                         {JSON.parse(post.content).split(/\n/).map((para,index) => {
                             return para !== '' ?
@@ -166,7 +169,9 @@ const PostDetail = (props) => {
                         )
                     }) :
                     <article className="no-result-wrapper">
-                        <p>Aucun commentaire, soyez le premier à commenter !</p>
+                        {props.darkMode ?
+                        <p>Aucun commentaire, soyez le premier à commenter !</p>:
+                        <p className="dark-text">Aucun commentaire, soyez le premier à commenter !</p>}
                     </article>}
 
                     {props.user.isLogged ? 
@@ -192,7 +197,8 @@ const PostDetail = (props) => {
 
 const mapStateToProps = (store) => {
     return {
-        user: store.user
+        user: store.user,
+        darkMode: store.display.darkMode
     }
 }
 

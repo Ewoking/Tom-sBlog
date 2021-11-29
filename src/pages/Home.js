@@ -71,7 +71,9 @@ const Home = (props) => {
             </div>
             
             <h1>Bienvenue sur le Blog de Tom</h1>
-            <h3>Les Derniers Articles</h3>
+            {props.darkMode ?
+            <h3>Les Derniers Articles</h3>:
+            <h3 className="dark-text">Les Derniers Articles</h3>}
 
             <div className="main-wrapper">
                 <div className="content-wrapper">
@@ -97,7 +99,8 @@ const Home = (props) => {
 }
 const mapStateToProps = (store) => {
     return {
-        user: store.user
+        user: store.user,
+        darkMode: store.display.darkMode
     }
 }
 
