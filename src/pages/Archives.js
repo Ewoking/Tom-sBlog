@@ -1,7 +1,6 @@
 import {useState, useEffect} from "react";
 import { connect } from "react-redux";
-import { useHistory } from "react-router";
-import { Link } from "react-router-dom";
+import { Link, useHistory} from "react-router-dom";
 import Aside from "../components/Aside";
 import PostOverview from "../components/PostOverview";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';

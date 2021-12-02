@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faUser, faTimes, faFeatherAlt} from '@fortawesome/free-solid-svg-icons';
-import { useHistory } from "react-router";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Aside from "../components/Aside";
 import ArticleSkeleton from "../components/ArticleSkeleton";
 import fullScreenPage from "../utilities/fullScreenPage";

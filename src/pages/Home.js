@@ -1,7 +1,6 @@
 import {useState, useEffect} from "react";
-import { useHistory } from "react-router";
 import { connect } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import Aside from "../components/Aside";
 import PostOverview from "../components/PostOverview";
 import Skeleton from "../components/Skeleton";

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { Redirect, useHistory } from "react-router";
+import { Redirect, useHistory } from "react-router-dom";
 import config from "../config";
 
 const EditPost = (props) => {
