@@ -107,7 +107,10 @@ const Archives = (props) => {
                 </form>
             </div>
             
-            <h3>Résultats du mois</h3>
+            {props.darkMode ?
+            <h3>Résultats du mois</h3> :
+            <h3 className="dark-text">Résultats du mois</h3>
+            }
             <div className="main-wrapper">
                 <div className="content-wrapper">
                     {isSearching ? 
@@ -126,7 +129,10 @@ const Archives = (props) => {
 
                         </section> :
                         <section className="no-result-wrapper">
-                            <p>Pas de résultats ...</p>
+                            {props.darkMode ?
+                            <p>Pas de résultats ...</p> :
+                            <p className="dark-text">Pas de résultats ...</p>
+                            }
                         </section>}
                     </div>}
                 </div>
@@ -136,7 +142,9 @@ const Archives = (props) => {
     )
 }
 const mapStateToProps = (store) => {
-    return {}
+    return {
+        darkMode: store.display.darkMode
+    }
 }
 
 const mapDispatchToProps = {};

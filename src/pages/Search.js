@@ -80,8 +80,10 @@ const Search = (props) => {
                 </form>
             </div>
             
-            
-            <h3>Résultats pour : "{commitedSearch}"</h3>
+            {props.darkMode ?
+            <h3>Résultats pour : "{commitedSearch}"</h3> :
+            <h3 className="dark-text">Résultats pour : "{commitedSearch}"</h3>
+            }
 
             <div className="main-wrapper">
                 <div className="content-wrapper">
@@ -101,7 +103,10 @@ const Search = (props) => {
 
                         </section> :
                         <section className="no-result-wrapper">
-                            <p>Pas de résultats ...</p>
+                            {props.darkMode ?
+                            <p>Pas de résultats ...</p> :
+                            <p className="dark-text">Pas de résultats ...</p>
+                            }
                         </section>}
                     </div>}
                 </div>
@@ -111,7 +116,9 @@ const Search = (props) => {
     )
 }
 const mapStateToProps = (store) => {
-    return {}
+    return {
+        darkMode : store.display.darkMode
+    }
 }
 
 const mapDispatchToProps = {};

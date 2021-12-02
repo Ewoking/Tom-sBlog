@@ -33,7 +33,7 @@ const Burger = (props) => {
             
             // positioning clickcatcher all across the page 
             clickCatcher.style.width = window.innerWidth +"px";
-            clickCatcher.style.height = (window.innerHeight + parseFloat(window.getComputedStyle(header).height))+"px";
+            clickCatcher.style.height = (window.innerHeight - parseFloat(window.getComputedStyle(header).height))+"px";
             clickCatcher.style.right = "-" + window.getComputedStyle(burgerButton).marginRight;
 
             document.querySelector(".burger-menu nav").classList.remove('rolling');

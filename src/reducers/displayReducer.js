@@ -11,9 +11,4 @@ export default function DisplayReducer(state = initialState, action) {
         default:
             return initialState;
     }
-    // if(action.type === SWITCH_DISPLAY) {
-    //     console.log('wesh la ', state.darkMode)
-    //     return {darkmode: !state.darkMode}
-    // }
-    // return state;
 }
