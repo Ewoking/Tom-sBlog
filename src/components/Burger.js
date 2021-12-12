@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { logoutUser } from "../actions/user/userActions";
@@ -21,7 +21,7 @@ const Burger = (props) => {
     
     
     // Ouverture/Fermeture du menu Burger
-    useEffect(()=> {
+    useLayoutEffect(()=> {
         if(active){
             let header = document.querySelector(".header-wrapper");
             let clickCatcher = document.querySelector(".burger-menu");
@@ -85,9 +85,19 @@ const Burger = (props) => {
 
     return(
         <div className="burger-wrapper" onClick={globalClick}>
-            <hr className="burger-line"/>
-            <hr className="burger-line"/>
-            <hr className="burger-line"/>
+            {props.darkMode ?
+            <>
+                <hr className="burger-line"/>
+                <hr className="burger-line"/>
+                <hr className="burger-line"/>
+            </> :
+            <>
+                <hr className="burger-line light-line"/>
+                <hr className="burger-line light-line"/>
+                <hr className="burger-line light-line"/>
+            </>
+            }
+            
             
             <div className="burger-menu" >
                 <nav onClick={e => {e.stopPropagation()}}>

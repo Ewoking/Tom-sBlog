@@ -10,7 +10,8 @@
     --grey: #222124;
     --lightgrey: #2c2c2c;
     --orange: #ffb331;
-    --blue: #39a1f6;
+    --blue: #3aa6ff;
+    --outline: #707070;
     --lightSkeleton: #cccccc;
     --darkSkeleton: #b3b3b3;
 }
@@ -32,6 +33,14 @@ body {
 .page .dark-text {
     color: var(--grey);
 }
+
+.burger-wrapper .light-line {
+    border-color: var(--lightgrey);
+}
+
+.light-outline {
+    border: 0.05rem solid var(--grey);
+}
 /* --- COMPONENTS --- */
 
 /* -- Header -- */
@@ -49,7 +58,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 0.05rem solid #707070;
+    border-bottom: 0.05rem solid var(--outline);
 }
 
 .header-wrapper h1 {
@@ -102,10 +111,11 @@ body {
     justify-content: flex-end;
     align-items: flex-start;
     background-color: rgba(0, 0, 0, 0);
-    top: 100%;
+    top: calc(100% + 0.05rem);
     right: 0;
     z-index: 100;
     margin: 1rem 0;
+    /* padding-top: 0.05rem; */
     cursor: initial;
     overflow: hidden;
     transition: height 0.5s ease-in-out;
@@ -236,7 +246,7 @@ aside section {
     text-align: center;
     color: white;
     background-color: var(--grey);
-    border: 0.05rem solid #707070;
+    border: 0.05rem solid var(--outline);
     margin-bottom: 1rem;
 }
 
@@ -410,7 +420,7 @@ aside h4 {
 
 footer {
     background-color: var(--grey);
-    border-top: 0.05rem solid #707070;
+    border-top: 0.05rem solid var(--outline);
     text-align: center;
     padding: 1rem;
     color: white;
