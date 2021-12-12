@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/Tom-sBlog/static/css/main.2520f190.chunk.css",
-    "main.js": "/Tom-sBlog/static/js/main.8480ee07.chunk.js",
-    "main.js.map": "/Tom-sBlog/static/js/main.8480ee07.chunk.js.map",
+    "main.css": "/Tom-sBlog/static/css/main.f308288d.chunk.css",
+    "main.js": "/Tom-sBlog/static/js/main.a28f09be.chunk.js",
+    "main.js.map": "/Tom-sBlog/static/js/main.a28f09be.chunk.js.map",
     "runtime-main.js": "/Tom-sBlog/static/js/runtime-main.2e337a71.js",
     "runtime-main.js.map": "/Tom-sBlog/static/js/runtime-main.2e337a71.js.map",
-    "static/js/2.e407af81.chunk.js": "/Tom-sBlog/static/js/2.e407af81.chunk.js",
-    "static/js/2.e407af81.chunk.js.map": "/Tom-sBlog/static/js/2.e407af81.chunk.js.map",
+    "static/js/2.34754893.chunk.js": "/Tom-sBlog/static/js/2.34754893.chunk.js",
+    "static/js/2.34754893.chunk.js.map": "/Tom-sBlog/static/js/2.34754893.chunk.js.map",
     "static/js/3.3f91da3b.chunk.js": "/Tom-sBlog/static/js/3.3f91da3b.chunk.js",
     "static/js/3.3f91da3b.chunk.js.map": "/Tom-sBlog/static/js/3.3f91da3b.chunk.js.map",
     "index.html": "/Tom-sBlog/index.html",
-    "static/css/main.2520f190.chunk.css.map": "/Tom-sBlog/static/css/main.2520f190.chunk.css.map",
-    "static/js/2.e407af81.chunk.js.LICENSE.txt": "/Tom-sBlog/static/js/2.e407af81.chunk.js.LICENSE.txt",
+    "static/css/main.f308288d.chunk.css.map": "/Tom-sBlog/static/css/main.f308288d.chunk.css.map",
+    "static/js/2.34754893.chunk.js.LICENSE.txt": "/Tom-sBlog/static/js/2.34754893.chunk.js.LICENSE.txt",
     "static/media/thomasAnderson.15344b2d.jpg": "/Tom-sBlog/static/media/thomasAnderson.15344b2d.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.2e337a71.js",
-    "static/js/2.e407af81.chunk.js",
-    "static/css/main.2520f190.chunk.css",
-    "static/js/main.8480ee07.chunk.js"
+    "static/js/2.34754893.chunk.js",
+    "static/css/main.f308288d.chunk.css",
+    "static/js/main.a28f09be.chunk.js"
   ]
 }
