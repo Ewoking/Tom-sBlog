@@ -30,13 +30,17 @@ const Archives = (props) => {
         fullScreenPage();
         // Récupération de la date du jour
         let date = new Date();
+        let currentMonth = date.getMonth().toString();
+        if(currentMonth.length === 1) {
+            currentMonth = "0" + currentMonth;
+        }
 
-        setMonth(date.getMonth());
+        setMonth(currentMonth);
         setYear(date.getFullYear());
         setMaxYear(date.getFullYear());
 
         // Requête serveur des article du mois
-        axios.get(config.apiUrl + '/monthly?date=' + date.getFullYear() + '-' + date.getMonth())
+        axios.get(config.apiUrl + '/monthly?date=' + date.getFullYear() + '-' + currentMonth)
         .then(response => {
             setResultArticles(response.data.posts);
             setIsSearching(false);
